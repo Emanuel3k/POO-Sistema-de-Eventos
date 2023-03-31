@@ -5,16 +5,25 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Evento {
-    private   String nome;
+    private int ultimoId=  0;
+    private int id;
+    private String nome;
     private String titulo;
     private LocalDate dataInicio;
     private LocalDate dataFinal;
     private String local;
-
-    public LocalTime ch; //Carga Horaria
-    public String organizador;//Vai ter que ser uma lista encadeada
-    public String descricao;
-
+    private  String descricao;
+    Scanner sc = new Scanner(System.in);
+    public Evento (String nome, String titulo, LocalDate dataInicio, LocalDate dataFinal, String local, String descricao){
+        this.id = ++ultimoId;
+        this.nome = nome;
+        this.titulo = titulo;
+        this.dataInicio=dataInicio;
+        this.dataFinal = dataFinal;
+        this.local = local;
+        this.descricao = descricao;
+    }
+    public int getId(){return id;}
     public void setNome(String nome){this.nome=nome;}
     public String getNome(){ return nome;}
     public void setTitulo(String titulo){this.titulo=titulo;}
@@ -25,25 +34,24 @@ public class Evento {
     public LocalDate getDataFinal(){return dataFinal;}
     public void setLocal(String local){this.local=local;}
     public String getLocal(){return local;}
+    public void setDescricao(String descricao){this.descricao = descricao;}
+    public String getDescricao(){return descricao;}
 
-    public void setCh(LocalTime ch) {this.ch = ch;}
+    public String toString(){
+        return "ID do Evento: " + this.id + "\nNome: " + this.nome +"\nTitulo: " + this.titulo
+                + "\nData de Inicio: " + this.dataInicio + "\nData de Termino: " + this.dataFinal
+                + "\nLocal: " + this.local + "\nDescrição: "+this.descricao + "\n\n";
+    }
 
-    public LocalTime getCh() {return ch;}
-
-    public void setOrganizador(String organizador) {this.organizador = organizador;}
-
-    public String getOrganizador() {return organizador;}
-
-    public void setDescricao(String descricao) {this.descricao = descricao;}
-
-    public String getDescricao() {return descricao;}
-    Scanner sc = new Scanner(System.in);
-    public void cadastrarEvento(){
+    public void addEvento() {
+        sc.nextLine();
         print("Nome: ");
-        nome = sc.nextLine();
-        print("\nTitulo: ");
-        titulo = sc.nextLine();
-        print("\nData de Inicio(dd/MM/aaaa): ");
+        String nome = sc.nextLine();
+        setNome(nome);
+        print("Titulo: ");
+        String titulo = sc.nextLine();
+        setTitulo(titulo);
+        print("Data de Inicio (dd/MM/aaaa): ");
         String datainicio = sc.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         dataInicio = LocalDate.parse(datainicio, formatter);//Converte a entrada em um objeto LocalDate
@@ -55,24 +63,10 @@ public class Evento {
         print("\nCarga-horária(HH:mm:ss): ");
         String cargaH= sc.nextLine();
         DateTimeFormatter formatter01 = DateTimeFormatter.ofPattern("HH:mm:ss");
-        ch = LocalTime.parse(cargaH, formatter01);
-        print("\nOrganizadores: ");
-        organizador = sc.nextLine();
+        //ch = LocalTime.parse(cargaH, formatter01);
         print("\nDescrição: ");
         descricao = sc.nextLine();
-    }
 
-    public void mostrarEvento(){
-        println("Nome:" + nome);
-        println("Titulo: " + titulo);
-        println("Data de Inicio: " + dataInicio);
-        println("Data de Termino: " + dataFinal);
-        println("Local: " + local);
-        println("Carga-horária: " + ch);
-        println("Organizadores: " + organizador);
-        println("Descrição: " + descricao);
     }
-
-    static void println(String conteudo){System.out.println(conteudo);}
-    static void print(String conteudo){System.out.print(conteudo);}//função pra não precisar ficar escrevendo System.out.printl
+    static void print(String conteudo){System.out.print("\n" + conteudo);}
 }
