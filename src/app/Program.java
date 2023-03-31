@@ -4,6 +4,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import classes.Evento;
+import classes.Participante;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,10 +14,12 @@ public class Program {
         Scanner sc = new Scanner(System.in);
         Program aux = new Program();
         List<Evento> listaEvento = new ArrayList<>();
-        ;
+
         int a = 1;
         while (a==1){
+
             println("1 - Cadastrar Evento");
+            println("2 - Cadastrar Participantes");
             println("9 - Sair");
             int b = sc.nextInt();
             switch (b){
@@ -23,7 +27,9 @@ public class Program {
                 case 1:
                     aux.addEvento();
                     break;
-
+                case 2:
+                    aux.addParticipante();
+                    break;
                 case 9:
                     a=0;
                     break;
@@ -56,7 +62,18 @@ public class Program {
         print("Descrição: ");
         String descricao = sc.nextLine();
         Evento evento = new Evento(nome, titulo, dataInicio, dataFinal, local, ch,descricao);
-        println("Evento cadastrado com sucesso!1");
+        println("Evento cadastrado com sucesso!");
+    }
+
+    public void addParticipante(){
+        print("Nome: ");
+        String nome = sc.nextLine();
+        print("CPF: ");
+        String cpf = sc.nextLine();
+        print("Numero da Matricula: ");
+        String matricula = sc.nextLine();
+        Participante participante = new Participante(nome, cpf, matricula);
+        println("Participante Cadastrado com Sucesso!");
     }
     static void print(String conteudo){System.out.print("\n" + conteudo);}
     static void println(String conteudo){System.out.println(conteudo);}
