@@ -12,15 +12,17 @@ public class Evento {
     private LocalDate dataInicio;
     private LocalDate dataFinal;
     private String local;
+    private  LocalTime ch;
     private  String descricao;
-    Scanner sc = new Scanner(System.in);
-    public Evento (String nome, String titulo, LocalDate dataInicio, LocalDate dataFinal, String local, String descricao){
+
+    public Evento (String nome, String titulo, LocalDate dataInicio, LocalDate dataFinal, String local,LocalTime ch, String descricao){
         this.id = ++ultimoId;
         this.nome = nome;
         this.titulo = titulo;
         this.dataInicio=dataInicio;
         this.dataFinal = dataFinal;
         this.local = local;
+        this.ch = ch;
         this.descricao = descricao;
     }
     public int getId(){return id;}
@@ -41,32 +43,6 @@ public class Evento {
         return "ID do Evento: " + this.id + "\nNome: " + this.nome +"\nTitulo: " + this.titulo
                 + "\nData de Inicio: " + this.dataInicio + "\nData de Termino: " + this.dataFinal
                 + "\nLocal: " + this.local + "\nDescrição: "+this.descricao + "\n\n";
-    }
-
-    public void addEvento() {
-        sc.nextLine();
-        print("Nome: ");
-        String nome = sc.nextLine();
-        setNome(nome);
-        print("Titulo: ");
-        String titulo = sc.nextLine();
-        setTitulo(titulo);
-        print("Data de Inicio (dd/MM/aaaa): ");
-        String datainicio = sc.nextLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        dataInicio = LocalDate.parse(datainicio, formatter);//Converte a entrada em um objeto LocalDate
-        print("\nData de Termino(dd/MM/aaaa): ");
-        String datafinal = sc.nextLine();
-        dataFinal = LocalDate.parse(datafinal, formatter);
-        print("\nLocal: ");
-        local = sc.nextLine();
-        print("\nCarga-horária(HH:mm:ss): ");
-        String cargaH= sc.nextLine();
-        DateTimeFormatter formatter01 = DateTimeFormatter.ofPattern("HH:mm:ss");
-        //ch = LocalTime.parse(cargaH, formatter01);
-        print("\nDescrição: ");
-        descricao = sc.nextLine();
-
     }
     static void print(String conteudo){System.out.print("\n" + conteudo);}
 }
