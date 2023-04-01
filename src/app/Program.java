@@ -3,11 +3,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import classes.Evento;
-import classes.Participante;
-
 import java.util.List;
 import java.util.Scanner;
+
+import model.entities.Evento;
+import model.entities.Participante;
 
 public class Program {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package classes;
+package model.entities;
 
 public class Participante {
 
