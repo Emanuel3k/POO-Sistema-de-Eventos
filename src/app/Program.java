@@ -14,6 +14,7 @@ public class Program {
     public static void main(String[] args) {
         Ui.clearScreen();
         LinkedList<Evento> listaEvento = new LinkedList<>();
+        LinkedList<Inscricao> listaInscricao = new LinkedList<>();
         LinkedList<Participante> listaParticipante = new LinkedList<>();
         int key = 0, idEvent = 0, idParticipante = 0;
 
@@ -25,7 +26,7 @@ public class Program {
 
             switch (key) {
                 case 0: // SAIR
-                    // Ui.clearScreen();
+                    Ui.clearScreen();
                     System.exit(0);
                     break;
 
@@ -40,11 +41,13 @@ public class Program {
                     listar(listaEvento);
                     System.out.print("Em qual evento você gostaria de se cadastrar: ");
                     int id = sc.nextInt();
-
                     Inscricao inscricao = new Inscricao(listaEvento.get(id), listaParticipante.getLast());
+                    listaInscricao.add(inscricao);
                     System.out.println(
                             "O Usuario foi cadastrado com sucesso! no evento:" + inscricao.getEvento().getTitulo());
                     break;
+
+                case 3:
 
                 default:
                     Ui.clearScreen();
