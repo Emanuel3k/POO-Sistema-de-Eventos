@@ -48,6 +48,7 @@ public class Program {
                     break;
 
                 case 3:
+                    listar(listaInscricao);
 
                 default:
                     Ui.clearScreen();
@@ -62,6 +63,7 @@ public class Program {
         System.out.println("0 - Sair");
         System.out.println("1 - Cadastrar Evento");
         System.out.println("2 - Inscrever-se no evento");
+        System.out.println("3 - Listar inscrições realizadas");
     }
 
     public static Evento cadastrarEvento(int id, Scanner sc) {
