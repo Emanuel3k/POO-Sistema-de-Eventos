@@ -1,42 +1,54 @@
 package model.entities;
 
+import java.time.LocalDate;
+
 public class Participante {
 
-    public int id;
-    public String nome;
-    public String cpf;
-    public String matricula;
+    // ATRIBUTOS
+    private int id;
+    private String nome;
+    private String cpf;
+    private LocalDate dataNascimento;
+    private String matricula;
 
-    public Participante(String nome, String cpf, String matricula){
+    // CONSTRUTOR
+    public Participante(int id, String nome, String cpf, LocalDate dataNascimento, String matricula) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
         this.matricula = matricula;
     }
-    public void setId(int id){
-        this.id = id;
-    }
+
+    // GET SET
     public int getId() {
         return id;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+
     public String getNome() {
         return nome;
     }
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
+
     public String getCpf() {
         return cpf;
     }
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
     }
-    public String getMatricula(){
+
+    public String getMatricula() {
         return matricula;
     }
 
+    @Override
+    public String toString() {
+        return "ID: " + id + "\t|Nome: " + nome + "\t|CPF: " + cpf + "\t|data de nascimento: " + dataNascimento
+                + "\t|Numero de matricula: " + matricula;
+    }
 
 }
-
