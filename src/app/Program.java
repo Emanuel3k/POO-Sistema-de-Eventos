@@ -49,7 +49,8 @@ public class Program {
 
                 case 3:
                     listar(listaInscricao);
-
+                    break;
+                    
                 default:
                     Ui.clearScreen();
                     System.out.println("Escolha apenas uma das opções validas\n");
