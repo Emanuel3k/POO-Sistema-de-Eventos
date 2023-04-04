@@ -48,7 +48,7 @@ public class Participante {
     @Override
     public String toString() {
         return "ID: " + id + "\t|Nome: " + nome + "\t|CPF: " + cpf + "\t|data de nascimento: " + dataNascimento
-                + "\t|Numero de matricula: " + matricula;
+                + "\t|Numero de matricula: " + matricula + "\n";
     }
 
 }

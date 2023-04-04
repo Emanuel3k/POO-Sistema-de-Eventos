@@ -22,7 +22,7 @@ public class Inscricao {
 
     @Override
     public String toString() {
-        return "Evento: " + evento + "\t|Participantes: " + participante;
+        return "Evento: " + evento + "\t|Participantes: " + participante + "\n";
     }
 
 }

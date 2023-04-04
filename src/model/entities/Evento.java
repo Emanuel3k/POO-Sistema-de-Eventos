@@ -87,7 +87,7 @@ public class Evento {
     @Override
     public String toString() {
         return "ID: " + id + "\t|Titulo: " + titulo + "\t|Descricao: " + descricao + "\t|Local: " + local + "\t|Inicio: "
-                + inicio.format(fmt) + "\t|Fim do evento: " + fim.format(fmt) + "\t|Organizadores: " + organizadores;
+                + inicio.format(fmt) + "\t|Fim do evento: " + fim.format(fmt) + "\t|Organizadores: " + organizadores + "\n";
     }
 
 }
