@@ -22,6 +22,18 @@ public class Usuario {
         
     }
 
+    public void addPart() {
+
+    }
+    
+    public void rmvPart() {
+
+    }
+
+    public void editOrganizador() {
+        
+    }
+
     // GET SET
     public String getLogin() {
         return login;
