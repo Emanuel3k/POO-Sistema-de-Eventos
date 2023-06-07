@@ -13,7 +13,7 @@ public class Participante extends Pessoa{
     private String numMatricula;
 
     // CONSTRUTOR
-    public Participante(String cpf, LocalDate dataNascimento, String numMatricula) {
+    public Participante(String nome, String cpf, LocalDate dataNascimento, String numMatricula) {
         super(nome);
         this.id++;
         this.cpf = cpf;

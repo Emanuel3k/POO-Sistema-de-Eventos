@@ -5,7 +5,7 @@ public class Organizador extends Pessoa {
         private int id;
 
         //Contrutor
-        public Organizador() {
+        public Organizador(String nome) {
             super(nome);
             this.id++;
         }

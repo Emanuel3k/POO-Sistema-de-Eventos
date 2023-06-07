@@ -3,7 +3,7 @@ package src.model.entities;
 public class Pessoa {
 
     //Atributo
-    private String nome;
+    protected String nome;
 
     //Construtor
     public Pessoa(String nome) {
