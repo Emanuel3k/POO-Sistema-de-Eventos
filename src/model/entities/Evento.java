@@ -1,27 +1,34 @@
 package model.entities;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import app.Ui;
 
 public class Evento {
     // ATRIBUTOS
-    private int id;
+    private static int id;
     private String titulo;
     private String descricao;
     private String local;
     private LocalDateTime inicio;
     private LocalDateTime fim;
-    private List<Organizador> organizadores;
-    private List<Participante> participantes;
+    private List<Organizador> organizadores = new ArrayList<>();
+    private List<Participante> participantes = new ArrayList<>();
+
+    Scanner sc = new Scanner(System.in);
 
     DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     // CONSTRUTORES
-    public Evento(int id, String titulo, String descricao, String local, LocalDateTime inicio, LocalDateTime fim,
+    public Evento(String titulo, String descricao, String local, LocalDateTime inicio, LocalDateTime fim,
             List<Organizador> organizadores) {
-        this.id = id;
+        id++;
         this.titulo = titulo;
         this.descricao = descricao;
         this.local = local;
@@ -34,6 +41,104 @@ public class Evento {
     public void cargaHoraria() {
         Duration ch = Duration.between(inicio, fim);
         System.out.println("O Evento irá durar: " + ch.toHours() + " Horas");
+    }
+
+    public void addParticipante() {
+        Ui.clearScreen();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        System.out.print("Nome do participante: ");
+        String nome = sc.nextLine();
+
+        System.out.print("CPF do participante: ");
+        String cpf = sc.nextLine().substring(0, 10);
+
+        System.out.print("Data de nascimento (dd/MM/yyyy): ");
+        LocalDate dataNascimento = LocalDate.parse(sc.nextLine(), dtf);
+
+        System.out.print("Numero de matricula: ");
+        String numMatricula = sc.nextLine();
+
+        participantes.add(new Participante(nome, cpf, dataNascimento, numMatricula));
+    }
+
+    public void editParticipante() {
+        Ui.clearScreen();
+        if (participantes.isEmpty()) {
+            System.out.println("Nenhum participante cadastrado no evento.");
+            return;
+        }
+
+        System.out.println("Digite o ID do participante que que deseja alterar as informações: \n");
+        for (Participante participante : participantes) {
+            System.out.println("ID: " + participante.getId() + " |Nome: " + participante.getNome() + "\n");
+        }
+
+        int id = sc.nextInt();
+        for (Participante participante : participantes) {
+            if (id == participante.getId()) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                System.out.println("Nome do participante: " + participante.getNome());
+                System.out.print("Novo nome: ");
+                participante.setNome(sc.nextLine());
+
+                System.out.println("CPF do participante: " + participante.getCpf());
+                System.out.print("Novo CPF: ");
+                participante.setCpf(sc.nextLine());
+
+                System.out.println("Data de nascimento: " + participante.getDataNascimento());
+                System.out.print("Nova data de nascimento (dd/MM/yyyy): ");
+                participante.setDataNascimento(LocalDate.parse(sc.nextLine(), dtf));
+
+                System.out.println("Numero da matricula: " + participante.getNumMatricula());
+                System.out.print("Novo numero de matricula: ");
+                participante.setNumMatricula(sc.nextLine());
+
+                System.out.println("Alteração realizada com sucesso!");
+                return;
+            }
+        }
+
+        System.out.println("Não foi possivel alterar as informações do usuario selecionado.\nTente Novamente!");
+    }
+
+    public void rmvParticipante() {
+        Ui.clearScreen();
+        if (participantes.isEmpty()) {
+            System.out.println("Nenhum participante cadastrado no evento.");
+            return;
+        }
+
+        System.out.println("Digite o ID do participante que será removido: \n");
+        for (Participante participante : participantes) {
+            System.out.println("ID: " + participante.getId() + " |Nome: " + participante.getNome());
+        }
+
+        int id = sc.nextInt();
+        for (Participante participante : participantes) {
+            if (id == participante.getId()) {
+                participantes.remove(id);
+                System.out.println("Participante removido com sucesso!");
+                return;
+            }
+        }
+
+        System.out.println("Não foi possivel remover o participante selecionado.\nTente Novamente!");
+    }
+
+    public void listarParticipante() {
+        Ui.clearScreen();
+        if (participantes.isEmpty()) {
+            System.out.println("Nenhum participante cadastrado no evento.");
+            return;
+        }
+
+        for (Participante participante : participantes) {
+            System.out.println("Nome: " + participante.getNome() + "|CPF: " + participante.getCpf()
+                    + "|Numero de matricula: " + participante.getNumMatricula() + "|Data de nascimento"
+                    + participante.getDataNascimento());
+        }
+
     }
 
     // GET AND SET
@@ -91,14 +196,6 @@ public class Evento {
 
     public void setParticipantes(List<Participante> participantes) {
         this.participantes = participantes;
-    }
-
-    @Override
-    public String toString() {
-        return "ID: " + id + "\t|Titulo: " + titulo + "\t|Descricao: " + descricao + "\t|Local: " + local
-                + "\t|Inicio: "
-                + inicio.format(fmt) + "\t|Fim do evento: " + fim.format(fmt) + "\t|Organizadores: " + organizadores
-                + "\n";
     }
 
 }
