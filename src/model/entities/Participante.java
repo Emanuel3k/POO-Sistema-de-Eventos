@@ -1,46 +1,28 @@
 package src.model.entities;
 
-import src.model.entities.Pessoa;
-
 import java.time.LocalDate;
 public class Participante extends Pessoa{
 
 
     // ATRIBUTOS
-    private int id;
-    private String cpf;
-    private LocalDate dataNascimento;
-    private String numMatricula;
+   private LocalDate dataNascimento;
 
-    // CONSTRUTOR
-    public Participante(String nome, String cpf, LocalDate dataNascimento, String numMatricula) {
-        super(nome);
-        this.id++;
-        this.cpf = cpf;
+    public Participante(String nome, String cpf, LocalDate dataNascimento) {
+        super(nome, cpf);
         this.dataNascimento = dataNascimento;
-        this.numMatricula = numMatricula;
     }
-
-    // GET SET
-    public int getId() {
-        return id;
-    }
-    public String getCpf() {
-        return cpf;
-    }
-
+    // Get e Set
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public String getMatricula() {
-        return numMatricula;
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     @Override
     public String toString() {
-        return "ID: " + id + "\t|CPF: " + cpf + "\t|data de nascimento: " + dataNascimento
-                + "\t|Numero de matricula: " + numMatricula + "\n";
+        return "ID: " + id + "\t|CPF: " + cpf + "\t|data de nascimento: " + dataNascimento;
     }
 
 }

@@ -1,24 +1,18 @@
 package src.model.entities;
 public class Organizador extends Pessoa {
 
-        //Atributo
-        private int id;
+
+
 
         //Contrutor
-        public Organizador(String nome) {
-            super(nome);
+        public Organizador(String nome, String cpf) {
+            super(nome, cpf);
             this.id++;
         }
 
-        // Get Set
-        public int getId() {
-            return id;
-        }
-        public void setId(int id) {
-            this.id = id;
-        }
+
         @Override
         public String toString(){
-            return "ID: " + id;
+            return "ID: " + id + "\t Nome: "+ nome+ "\t CPF: "+ cpf;
         }
     }
