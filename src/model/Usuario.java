@@ -1,8 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import model.entities.Evento;
+
 public class Usuario {
     // ATRIBUTOS
     private String login;
+    private List<Evento> eventos = new ArrayList<>();
 
     // CONSTRUTOR
     public Usuario(String login) {
@@ -14,24 +20,16 @@ public class Usuario {
 
     }
 
-    public void excEvento() {
-
-    }
-
     public void editEvento() {
-        
-    }
-
-    public void addPart() {
-
-    }
-    
-    public void rmvPart() {
 
     }
 
-    public void editOrganizador() {
-        
+    public void rmvEvento() {
+
+    }
+
+    public void listarEvento() {
+
     }
 
     // GET SET
@@ -41,6 +39,14 @@ public class Usuario {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
     }
 
 }
