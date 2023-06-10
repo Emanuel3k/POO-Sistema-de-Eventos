@@ -23,7 +23,6 @@ public class Evento {
     private List<Organizador> organizadores = new ArrayList<>();
     private List<Participante> participantes = new ArrayList<>();
 
-
     Scanner sc = new Scanner(System.in);
 
     // CONSTRUTORES
@@ -54,7 +53,7 @@ public class Evento {
 
         System.out.print("CPF do participante: ");
         try {
-            
+
         } catch (Exception e) {
             System.err.println("error" + e);
         }
@@ -64,7 +63,7 @@ public class Evento {
         LocalDate dataNascimento = LocalDate.parse(sc.nextLine(), dtf);
 
         String numMatricula = "";
-        for (int i = 0 ; i<12; i++){
+        for (int i = 0; i < 12; i++) {
             numMatricula += Integer.toString(rd.nextInt(10));
         }
 
@@ -207,4 +206,10 @@ public class Evento {
         this.participantes = participantes;
     }
 
+    @Override
+    public String toString() {
+        return "ID: " + getId() + "\n|Titulo: " + titulo + "\nDescricao: " + descricao + "\n|Local: " + getLocal()
+                + "\n|Inicio: "
+                + getInicio() + "\n|Fim: " + getFim();
+    }
 }

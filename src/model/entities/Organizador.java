@@ -4,7 +4,7 @@ public class Organizador extends Pessoa {
 
     private static int sequence = 0;
 
-    // Contrutor
+    // CONSTRUTOTR
     public Organizador(String nome, String cpfCnpj) {
         super(nome, cpfCnpj);
         setId(sequence++);

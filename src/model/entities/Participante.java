@@ -16,7 +16,7 @@ public class Participante extends Pessoa {
         setId(sequence++);
     }
 
-    // Get e Set
+    // GET AND SET
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
@@ -35,7 +35,7 @@ public class Participante extends Pessoa {
 
     @Override
     public String toString() {
-        return "ID: " + getId() + "\t|CPF: " + getCpf() + "\t|data de nascimento: " + getDataNascimento();
+        return "ID: " + getId() + "\t|CPF: " + getCpf() + "\t|Data de nascimento: " + getDataNascimento();
     }
 
 }
