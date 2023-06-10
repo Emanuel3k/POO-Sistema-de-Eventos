@@ -1,16 +1,21 @@
-package src.model.entities;
+package model.entities;
 
 import java.time.LocalDate;
-public class Participante extends Pessoa{
 
+public class Participante extends Pessoa {
 
     // ATRIBUTOS
-   private LocalDate dataNascimento;
+    private static int sequence = 0;
+    private LocalDate dataNascimento;
+    private String numMatricula;
 
-    public Participante(String nome, String cpf, LocalDate dataNascimento) {
-        super(nome, cpf);
+    public Participante(String nome, String cpfCnpj, LocalDate dataNascimento, String numMatricula) {
+        super(nome, cpfCnpj);
         this.dataNascimento = dataNascimento;
+        this.numMatricula = numMatricula;
+        setId(sequence++);
     }
+
     // Get e Set
     public LocalDate getDataNascimento() {
         return dataNascimento;
@@ -20,9 +25,17 @@ public class Participante extends Pessoa{
         this.dataNascimento = dataNascimento;
     }
 
+    public String getNumMatricula() {
+        return numMatricula;
+    }
+
+    public void setNumMatricula(String numMatricula) {
+        this.numMatricula = numMatricula;
+    }
+
     @Override
     public String toString() {
-        return "ID: " + id + "\t|CPF: " + cpf + "\t|data de nascimento: " + dataNascimento;
+        return "ID: " + getId() + "\t|CPF: " + getCpf() + "\t|data de nascimento: " + getDataNascimento();
     }
 
 }

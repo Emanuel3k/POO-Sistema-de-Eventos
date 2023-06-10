@@ -6,13 +6,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import app.Ui;
 
 public class Evento {
     // ATRIBUTOS
-    private static int id;
+    private static int sequencia = 0;
+    private int id;
     private String titulo;
     private String descricao;
     private String local;
@@ -21,14 +23,13 @@ public class Evento {
     private List<Organizador> organizadores = new ArrayList<>();
     private List<Participante> participantes = new ArrayList<>();
 
-    Scanner sc = new Scanner(System.in);
 
-    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    Scanner sc = new Scanner(System.in);
 
     // CONSTRUTORES
     public Evento(String titulo, String descricao, String local, LocalDateTime inicio, LocalDateTime fim,
             List<Organizador> organizadores) {
-        id++;
+        this.id = sequencia++;
         this.titulo = titulo;
         this.descricao = descricao;
         this.local = local;
@@ -45,19 +46,27 @@ public class Evento {
 
     public void addParticipante() {
         Ui.clearScreen();
+        Random rd = new Random();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         System.out.print("Nome do participante: ");
         String nome = sc.nextLine();
 
         System.out.print("CPF do participante: ");
+        try {
+            
+        } catch (Exception e) {
+            System.err.println("error" + e);
+        }
         String cpf = sc.nextLine().substring(0, 10);
 
         System.out.print("Data de nascimento (dd/MM/yyyy): ");
         LocalDate dataNascimento = LocalDate.parse(sc.nextLine(), dtf);
 
-        System.out.print("Numero de matricula: ");
-        String numMatricula = sc.nextLine();
+        String numMatricula = "";
+        for (int i = 0 ; i<12; i++){
+            numMatricula += Integer.toString(rd.nextInt(10));
+        }
 
         participantes.add(new Participante(nome, cpf, dataNascimento, numMatricula));
     }
@@ -71,7 +80,7 @@ public class Evento {
 
         System.out.println("Digite o ID do participante que que deseja alterar as informações: \n");
         for (Participante participante : participantes) {
-            System.out.println("ID: " + participante.getId() + " |Nome: " + participante.getNome() + "\n");
+            System.out.println("ID: " + participante.getId() + "\t|Nome: " + participante.getNome());
         }
 
         int id = sc.nextInt();

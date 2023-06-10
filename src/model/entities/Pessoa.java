@@ -1,30 +1,35 @@
-package src.model.entities;
+package model.entities;
 
-public class Pessoa {
+public abstract class Pessoa {
 
-    //Atributo
+    // Atributo
 
-    protected int id;
-    protected String nome;
-    protected String cpf;
+    private int id;
+    private String nome;
+    private String cpfCnpj;
 
-    //Construtor
-    public Pessoa(String nome, String cpf) {
+    // Construtor
+    public Pessoa(String nome, String cpfCnpj) {
         this.nome = nome;
-        this.cpf = cpf;
+        this.cpfCnpj = cpfCnpj;
     }
 
-    //Get Set
+    // Get Set
 
     public int getId() {
         return id;
     }
-    public String getCpf() {
-        return cpf;
+
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public String getCpf() {
+        return cpfCnpj;
+    }
+
+    public void setCpf(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
     }
 
     public String getNome() {
@@ -33,11 +38,5 @@ public class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    @Override
-    public String toString() {
-        return "Nome: " + nome;
-
     }
 }
