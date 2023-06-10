@@ -1,7 +1,6 @@
 package app;
 
-public class Ui { // CLASSE PARA CRIAR METODOS QUE AFETARAM DIRETAMENTE O TERMINAL
-
+public class Ui {
     /*
      * https://stackoverflow.com/question/2979383/java-clear-the-console
      * Metodo para limpar o terminal
