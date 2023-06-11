@@ -98,10 +98,6 @@ public class Evento {
                 System.out.print("Nova data de nascimento (dd/MM/yyyy): ");
                 participante.setDataNascimento(LocalDate.parse(sc.nextLine(), dtf));
 
-                System.out.println("Numero da matricula: " + participante.getNumMatricula());
-                System.out.print("Novo numero de matricula: ");
-                participante.setNumMatricula(sc.nextLine());
-
                 System.out.println("Alteração realizada com sucesso!");
                 return;
             }
