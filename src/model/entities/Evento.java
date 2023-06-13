@@ -26,21 +26,30 @@ public class Evento {
     Scanner sc = new Scanner(System.in);
 
     // CONSTRUTORES
-    public Evento(String titulo, String descricao, String local, LocalDateTime inicio, LocalDateTime fim,
-            List<Organizador> organizadores) {
+    public Evento(String titulo, String descricao, String local, LocalDateTime inicio, LocalDateTime fim) {
         this.id = sequencia++;
         this.titulo = titulo;
         this.descricao = descricao;
         this.local = local;
         this.inicio = inicio;
         this.fim = fim;
-        this.organizadores = organizadores;
     }
 
     // METODOS
     public void cargaHoraria() {
         Duration ch = Duration.between(inicio, fim);
         System.out.println("O Evento irá durar: " + ch.toHours() + " Horas");
+    }
+
+    public void addOrganizador() {
+        Ui.clearScreen();
+        System.out.println("Nome do organizador");
+        String nome = sc.nextLine();
+
+        System.out.println("CNPJ do organizador");
+        String cnpj = sc.nextLine();
+
+        organizadores.add(new Organizador(nome, cnpj));
     }
 
     public void addParticipante() {
