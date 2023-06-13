@@ -52,12 +52,7 @@ public class Evento {
         String nome = sc.nextLine();
 
         System.out.print("CPF do participante: ");
-        try {
-
-        } catch (Exception e) {
-            System.err.println("error" + e);
-        }
-        String cpf = sc.nextLine().substring(0, 10);
+        String cpf = sc.nextLine();
 
         System.out.print("Data de nascimento (dd/MM/yyyy): ");
         LocalDate dataNascimento = LocalDate.parse(sc.nextLine(), dtf);
