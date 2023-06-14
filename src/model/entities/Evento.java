@@ -97,6 +97,7 @@ public class Evento {
 
                 System.out.println("Nome do participante: " + participante.getNome());
                 System.out.print("Novo nome: ");
+                sc.nextLine();
                 participante.setNome(sc.nextLine());
 
                 System.out.println("CPF do participante: " + participante.getCpf());

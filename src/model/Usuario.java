@@ -77,6 +77,7 @@ public class Usuario {
 
                 System.out.println("Titulo do evento: " + evento.getTitulo());
                 System.out.print("Novo titulo: ");
+                sc.nextLine();
                 evento.setTitulo(sc.nextLine());
 
                 System.out.println("Descrição do evento: " + evento.getDescricao());
@@ -88,11 +89,11 @@ public class Usuario {
                 evento.setLocal(sc.nextLine());
 
                 System.out.println("Data de inicio do evento: " + evento.getInicio());
-                System.out.print("Nova data de inicio: ");
+                System.out.print("Nova data de inicio (dd/MM/yyyy HH:mm): ");
                 evento.setInicio(LocalDateTime.parse(sc.nextLine(), fmt));
 
                 System.out.println("Data de término do evento: " + evento.getFim());
-                System.out.print("Novo data término: ");
+                System.out.print("Novo data término (dd/MM/yyyy HH:mm): ");
                 evento.setFim(LocalDateTime.parse(sc.nextLine(), fmt));
 
                 Ui.clearScreen();
@@ -162,12 +163,14 @@ public class Usuario {
         for (Evento evento : eventos) {
             if (id == evento.getId()) {
                 e = evento;
+                Ui.clearScreen();
 
                 while (true) {
                     subMenuGerenciar();
                     int op = sc.nextInt();
                     switch (op) {
                         case 0:
+                            Ui.clearScreen();
                             return;
 
                         case 1: // ADICIONAR PARTICIPANTE
@@ -217,7 +220,6 @@ public class Usuario {
     }
 
     private static void subMenuGerenciar() {
-        Ui.clearScreen();
         System.out.println("0 - Voltar ao menu principal");
         System.out.println("1 - Adicionar participante ao evento");
         System.out.println("2 - Editar informações do participante");
