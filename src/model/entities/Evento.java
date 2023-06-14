@@ -36,17 +36,19 @@ public class Evento {
     }
 
     // METODOS
-    public void cargaHoraria() {
+    public String cargaHoraria() {
         Duration ch = Duration.between(inicio, fim);
-        System.out.println("O Evento irá durar: " + ch.toHours() + " Horas");
+        if (ch.toHours() < 1) {
+            return ch.toMinutes() + "m";
+        }
+        return ch.toHours() + "h";
     }
 
     public void addOrganizador() {
-        Ui.clearScreen();
-        System.out.println("Nome do organizador");
+        System.out.print("Nome do organizador: ");
         String nome = sc.nextLine();
 
-        System.out.println("CNPJ do organizador");
+        System.out.print("CNPJ do organizador: ");
         String cnpj = sc.nextLine();
 
         organizadores.add(new Organizador(nome, cnpj));
@@ -72,16 +74,18 @@ public class Evento {
         }
 
         participantes.add(new Participante(nome, cpf, dataNascimento, numMatricula));
+        Ui.clearScreen();
+        System.out.println("Participante cadastrado com sucesso!");
     }
 
-    public void editParticipante() {
+    public void editarParticipante() {
         Ui.clearScreen();
         if (participantes.isEmpty()) {
             System.out.println("Nenhum participante cadastrado no evento.");
             return;
         }
 
-        System.out.println("Digite o ID do participante que que deseja alterar as informações: \n");
+        System.out.println("Digite o ID do participante que deseja alterar as informações: \n");
         for (Participante participante : participantes) {
             System.out.println("ID: " + participante.getId() + "\t|Nome: " + participante.getNome());
         }
@@ -90,6 +94,7 @@ public class Evento {
         for (Participante participante : participantes) {
             if (id == participante.getId()) {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
                 System.out.println("Nome do participante: " + participante.getNome());
                 System.out.print("Novo nome: ");
                 participante.setNome(sc.nextLine());
@@ -102,11 +107,13 @@ public class Evento {
                 System.out.print("Nova data de nascimento (dd/MM/yyyy): ");
                 participante.setDataNascimento(LocalDate.parse(sc.nextLine(), dtf));
 
+                Ui.clearScreen();
                 System.out.println("Alteração realizada com sucesso!");
                 return;
             }
         }
 
+        Ui.clearScreen();
         System.out.println("Não foi possivel alterar as informações do usuario selecionado.\nTente Novamente!");
     }
 
@@ -119,18 +126,20 @@ public class Evento {
 
         System.out.println("Digite o ID do participante que será removido: \n");
         for (Participante participante : participantes) {
-            System.out.println("ID: " + participante.getId() + " |Nome: " + participante.getNome());
+            System.out.println("ID: " + participante.getId() + "\t|Nome: " + participante.getNome());
         }
 
         int id = sc.nextInt();
         for (Participante participante : participantes) {
             if (id == participante.getId()) {
                 participantes.remove(id);
+                Ui.clearScreen();
                 System.out.println("Participante removido com sucesso!");
                 return;
             }
         }
 
+        Ui.clearScreen();
         System.out.println("Não foi possivel remover o participante selecionado.\nTente Novamente!");
     }
 
@@ -142,8 +151,8 @@ public class Evento {
         }
 
         for (Participante participante : participantes) {
-            System.out.println("Nome: " + participante.getNome() + "|CPF: " + participante.getCpf()
-                    + "|Numero de matricula: " + participante.getNumMatricula() + "|Data de nascimento"
+            System.out.println("Nome: " + participante.getNome() + "\t|CPF: " + participante.getCpf()
+                    + "\t|Numero de matricula: " + participante.getNumMatricula() + "\t|Data de nascimento: "
                     + participante.getDataNascimento());
         }
 
@@ -208,8 +217,8 @@ public class Evento {
 
     @Override
     public String toString() {
-        return "ID: " + getId() + "\n|Titulo: " + titulo + "\nDescricao: " + descricao + "\n|Local: " + getLocal()
-                + "\n|Inicio: "
-                + getInicio() + "\n|Fim: " + getFim();
+        return "ID: " + getId() + "\t|Titulo: " + titulo + "\tDescricao: " + descricao + "\t|Local: " + getLocal()
+                + "\t|Inicio: "
+                + getInicio() + "\t|Fim: " + getFim();
     }
 }

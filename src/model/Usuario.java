@@ -1,6 +1,5 @@
 package model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -9,16 +8,13 @@ import java.util.Scanner;
 
 import app.Ui;
 import model.entities.Evento;
-import model.entities.Participante;
 
 public class Usuario {
     // ATRIBUTOS
     private String login;
     private List<Evento> eventos = new ArrayList<>();
 
-
     Scanner sc = new Scanner(System.in);
-    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     // CONSTRUTOR
     public Usuario(String login) {
@@ -28,27 +24,44 @@ public class Usuario {
     // METODOS
     public void cadEvento() {
         Ui.clearScreen();
-        System.out.println("CADASTRO DE EVENTO");
-        System.out.println("Titulo:");
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        System.out.print("Titulo do evento: ");
         String titulo = sc.nextLine();
-        System.out.println("Descrição:");
+
+        System.out.print("Descrição do evento: ");
         String descricao = sc.nextLine();
-        System.out.println("Local:");
+
+        System.out.print("Local do evento: ");
         String local = sc.nextLine();
+
         System.out.print("Inicio do evento (dd/MM/yyyy HH:mm): ");
         LocalDateTime inicio = LocalDateTime.parse(sc.nextLine(), fmt);
+
         System.out.print("Fim do evento (dd/MM/yyyy HH:mm): ");
+
         LocalDateTime fim = LocalDateTime.parse(sc.nextLine(), fmt);
-        Evento evento = new Evento(titulo,descricao,local,inicio,fim);
-        //evento.addOrganizador();
-        eventos.add(evento);
+
+        eventos.add(new Evento(titulo, descricao, local, inicio, fim));
+
+        while (true) {
+            eventos.get(eventos.size() - 1).addOrganizador();
+            Ui.clearScreen();
+            System.out.print("Deseja adicionar um novo organizador ao evento (S/n): ");
+            String op = sc.nextLine().toUpperCase();
+            if (op.charAt(0) == 'N') {
+                Ui.clearScreen();
+                System.out.println("Evento cadastrado com sucesso!");
+                return;
+            }
+        }
 
     }
 
-    public void editEvento() {
+    public void editarEvento() {
         Ui.clearScreen();
         if (eventos.isEmpty()) {
-            System.out.println("Nenhum evento cadastrado.");
+            System.out.println("Nenhum evento cadastrado no sistema.");
             return;
         }
 
@@ -60,8 +73,10 @@ public class Usuario {
         int id = sc.nextInt();
         for (Evento evento : eventos) {
             if (id == evento.getId()) {
+                DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
                 System.out.println("Titulo do evento: " + evento.getTitulo());
-                System.out.print("Novo evento: ");
+                System.out.print("Novo titulo: ");
                 evento.setTitulo(sc.nextLine());
 
                 System.out.println("Descrição do evento: " + evento.getDescricao());
@@ -73,60 +88,73 @@ public class Usuario {
                 evento.setLocal(sc.nextLine());
 
                 System.out.println("Data de inicio do evento: " + evento.getInicio());
-                System.out.print("Novo evento: ");
+                System.out.print("Nova data de inicio: ");
                 evento.setInicio(LocalDateTime.parse(sc.nextLine(), fmt));
 
                 System.out.println("Data de término do evento: " + evento.getFim());
-                System.out.print("Novo término: ");
+                System.out.print("Novo data término: ");
                 evento.setFim(LocalDateTime.parse(sc.nextLine(), fmt));
 
+                Ui.clearScreen();
                 System.out.println("Alteração realizada com sucesso!");
                 return;
             }
         }
 
+        Ui.clearScreen();
         System.out.println("Não foi possivel alterar as informações do evento selecionado.\nTente Novamente!");
     }
 
     public void rmvEvento() {
         Ui.clearScreen();
         if (eventos.isEmpty()) {
-            System.out.println("Nenhum evento cadastrado.");
+            System.out.println("Nenhum evento cadastrado no sistema.");
             return;
         }
 
         System.out.println("Digite o ID do evento que será removido: \n");
         for (Evento evento : eventos) {
-            System.out.println("Nome: "+evento.getTitulo() + "  |Descrição: "+evento.getDescricao() + "  |Carga horaria: "+evento.cargaHoraria()+"\n");        }
+            System.out.println("ID: " + evento.getId() + "\t|Titulo: " + evento.getTitulo());
+        }
 
         int id = sc.nextInt();
         for (Evento evento : eventos) {
             if (id == evento.getId()) {
                 eventos.remove(id);
+
+                Ui.clearScreen();
                 System.out.println("Evento removido com sucesso!");
                 return;
             }
         }
 
+        Ui.clearScreen();
         System.out.println("Não foi possivel remover o evento selecionado.\nTente Novamente!");
     }
 
     public void listarEvento() {
-        for(Evento evento : eventos){
-            System.out.println("Nome: "+evento.getTitulo() + "  |Descrição: "+evento.getDescricao() + "  |Carga horaria: "+evento.cargaHoraria()+"\n");
+        Ui.clearScreen();
+        if (eventos.isEmpty()) {
+            System.out.println("Nenhum evento cadastrado no sistema.");
+            return;
+        }
+
+        for (Evento evento : eventos) {
+            System.out.println("Nome: " + evento.getTitulo() + "\t|Descrição: " + evento.getDescricao()
+                    + "\t|Duração: " + evento.cargaHoraria());
         }
     }
 
     public void gerirEvento() {
         Ui.clearScreen();
         if (eventos.isEmpty()) {
-            System.out.println("Nenhum evento cadastrado no sistema!");
+            System.out.println("Nenhum evento cadastrado no sistema.");
             return;
         }
 
         System.out.println("Digite o ID do evento que deseja gerenciar: ");
         for (Evento evento : eventos) {
-            System.out.println("ID: " + evento.getId() + "\t|Titulo" + evento.getTitulo());
+            System.out.println("ID: " + evento.getId() + "\t|Titulo: " + evento.getTitulo());
         }
 
         int id = sc.nextInt();
@@ -134,36 +162,41 @@ public class Usuario {
         for (Evento evento : eventos) {
             if (id == evento.getId()) {
                 e = evento;
-            } else {
-                System.out.println("ID de evento invalido.\nTente novamente.");
-                return;
+
+                while (true) {
+                    subMenuGerenciar();
+                    int op = sc.nextInt();
+                    switch (op) {
+                        case 0:
+                            return;
+
+                        case 1: // ADICIONAR PARTICIPANTE
+                            e.addParticipante();
+                            break;
+
+                        case 2: // EDITAR PARTICIPANTE
+                            e.editarParticipante();
+                            break;
+
+                        case 3: // LISTAR PARTICIPANTE
+                            e.listarParticipante();
+                            break;
+
+                        case 4: // REMOVER PARTICIPANTE
+                            e.rmvParticipante();
+                            break;
+
+                        default:
+                            Ui.clearScreen();
+                            System.out.println("Operação nao disponivel.\nTente novamente.");
+                            break;
+                    }
+                }
             }
         }
 
-        while (true) {
-            subMenuGerenciar();
-            int op = sc.nextInt();
-            switch (op) {
-                case 1:
-                    e.addParticipante();
-                    break;
-
-                case 2:
-                    e.editParticipante();
-                    break;
-
-                case 3:
-                    e.rmvParticipante();
-                    break;
-
-                case 4:
-                    editEvento();
-                    break;
-                default:
-                    break;
-            }
-        }
-
+        Ui.clearScreen();
+        System.out.println("ID do evento invávilo.\nTente novamente.");
     }
 
     // GET SET
@@ -185,10 +218,11 @@ public class Usuario {
 
     private static void subMenuGerenciar() {
         Ui.clearScreen();
+        System.out.println("0 - Voltar ao menu principal");
         System.out.println("1 - Adicionar participante ao evento");
         System.out.println("2 - Editar informações do participante");
-        System.out.println("3 - Remover participante");
-        System.out.println("4 - Editar informação do evento");
+        System.out.println("3 - Listar participantes");
+        System.out.println("4 - Remover participante");
     }
 
 }

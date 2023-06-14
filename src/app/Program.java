@@ -10,7 +10,7 @@ public class Program {
 
         try (Scanner sc = new Scanner(System.in)) {
             Ui.clearScreen();
-            
+
             Usuario user = new Usuario("ROOT");
             login(sc);
 
@@ -32,32 +32,35 @@ public class Program {
                         user.gerirEvento();
                         break;
 
-                    case 3: // LISTAR EVENTO
+                    case 3:
+                        user.editarEvento();
+                        break;
+                    case 4: // LISTAR EVENTO
                         user.listarEvento();
                         break;
 
-                    case 4: // REMOVER EVENTO
+                    case 5: // REMOVER EVENTO
                         user.rmvEvento();
                         break;
 
                     default:
-
+                        System.out.println("Operação nao disponivel.\nTente novamente.");
                         break;
                 }
             }
         } catch (Exception e) {
-            System.err.println(e);
+            System.out.println(e);
         }
 
     }
 
     public static void menu() {
-        Ui.clearScreen();
         System.out.println("0 - Sair");
         System.out.println("1 - Cadastrar evento");
         System.out.println("2 - Gerenciar evento");
-        System.out.println("3 - Listar eventos");
-        System.out.println("3 - Cancelar evento");
+        System.out.println("3 - Editar informação do evento");
+        System.out.println("4 - Listar eventos");
+        System.out.println("5 - Cancelar evento");
     }
 
     public static void login(Scanner sc) {
@@ -74,6 +77,7 @@ public class Program {
             if (login.equals("ROOT")) {
                 Ui.clearScreen();
                 System.out.println("Login realizado com sucesso!");
+                Ui.clearScreen();
                 return;
             }
         }
